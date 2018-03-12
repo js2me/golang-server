@@ -1,33 +1,39 @@
 package db
 
 import (
-	"fmt"
+	"../models"
 	"gopkg.in/mgo.v2"
-	"gopkg.in/mgo.v2/bson"
 )
 
-var session, err = mgo.Dial("localhost:27017")
+const (
+	dbAddr     = "localhost:27017"
+	dbName     = "shop"
+	goodsCName = "goods"
+	vapesCName = "vapes"
+)
 
-func FindAll(database string, collection string, query interface{}) ([]bson.M, error) {
-	var results = []bson.M{}
-	fmt.Println("Search from ", database, " in ", collection, " using query ", query)
-	err := session.DB(database).C(collection).Find(query).All(&results)
-	if err != nil {
-		fmt.Println(err)
-	} else {
-		fmt.Println("Results All: ", results)
+var session, err = mgo.Dial(dbAddr)
+
+func FindGoods(query interface{}) ([]models.Good, error) {
+	var results []models.Good
+	if err := session.DB(dbName).C(goodsCName).Find(query).All(&results); err != nil {
+		panic(err)
 	}
 	return results, err
 }
 
-func FindOne(database string, collection string, query interface{}) (bson.M, error) {
-	var result = bson.M{}
-	fmt.Println("Search from ", database, " in ", collection, " using query ", query)
-	err := session.DB(database).C(collection).Find(query).One(&result)
-	if err != nil {
-		fmt.Println(err)
-	} else {
-		fmt.Println("Result One: ", result)
+func FindVapes(query interface{}) ([]models.Vape, error) {
+	var results []models.Vape
+	if err := session.DB(dbName).C(vapesCName).Find(query).All(&results); err != nil {
+		panic(err)
+	}
+	return results, err
+}
+
+func FindVapeById(id interface{}) (models.Vape, error) {
+	var result models.Vape
+	if err := session.DB(dbName).C(vapesCName).FindId(id).One(&result); err != nil {
+		panic(err)
 	}
 	return result, err
 }
