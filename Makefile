@@ -1,17 +1,20 @@
-.PHONY: deps build doc fmt lint run test vendor_clean vendor_get vendor_update vet
+.PHONY: deps build doc fmt lint run run-fe test vendor_clean vendor_get vendor_update vet
 
 
-GOCMD=go
 GOBUILD=$(GOCMD) build
 GOCLEAN=$(GOCMD) clean
 GOTEST=$(GOCMD) test
-GOGET=$(GOCMD) get
 
 
 
 deps:
-	$(GOGET) github.com/gin-gonic/gin
-	$(GOGET) gopkg.in/mgo.v2
-	$(GOGET) github.com/appleboy/gin-jwt;
+	go get github.com/gin-gonic/gin
+	go get golang.org/x/crypto/bcrypt
+	go get gopkg.in/mgo.v2
+	go get github.com/appleboy/gin-jwt
+deps-fe:
+	cd web && npm i
 run:
-	$(GOCMD) run ./main.go
+	PORT=8080 go run ./main.go
+run-fe:
+	cd web && npm start

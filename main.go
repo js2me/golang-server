@@ -2,10 +2,8 @@ package main
 
 import (
 	"./controllers"
-	"github.com/appleboy/gin-jwt"
 	"github.com/gin-gonic/gin"
 	"os"
-	"time"
 )
 
 var router *gin.Engine
@@ -20,43 +18,10 @@ func main() {
 	router.Use(CORSMiddleware())
 
 	// the jwt middleware
-	authMiddleware := &jwt.GinJWTMiddleware{
-		Realm:      "test zone",
-		Key:        []byte("secret key"),
-		Timeout:    time.Hour,
-		MaxRefresh: time.Hour,
-		Authenticator: func(userId string, password string, c *gin.Context) (string, bool) {
-			return userId, (userId == "admin" && password == "admin") || (userId == "test" && password == "test")
-		},
-		Authorizator: func(userId string, c *gin.Context) bool {
-			return userId == "admin"
-		},
-		Unauthorized: func(c *gin.Context, code int, message string) {
-			c.JSON(code, gin.H{
-				"code":    code,
-				"message": message,
-			})
-		},
-		// TokenLookup is a string in the form of "<source>:<name>" that is used
-		// to extract token from the request.
-		// Optional. Default value "header:Authorization".
-		// Possible values:
-		// - "header:<name>"
-		// - "query:<name>"
-		// - "cookie:<name>"
-		TokenLookup: "header:Authorization",
-		// TokenLookup: "query:token",
-		// TokenLookup: "cookie:token",
 
-		// TokenHeadName is a string in the header. Default value is "Bearer"
-		TokenHeadName: "Bearer",
 
-		// TimeFunc provides the current time. You can override it to use another time value. This is useful for testing or if your server uses a different time zone than your tokens.
-		TimeFunc: time.Now,
-	}
-
-	router.POST("/login", authMiddleware.LoginHandler)
-	//router.POST("/registration", authMiddleware.Re)
+	router.POST("/login", controllers.AuthMiddleware.LoginHandler)
+	//router.POST("/registration", controllers.AuthMiddleware.Re)
 
 	v1 := router.Group("/api/v1")
 	{
@@ -70,11 +35,13 @@ func main() {
 		v1.GET("/goods", goods.FindAll)
 
 		/*** AUTH ***/
-		auth := v1.Group("/auth")
+		auth := new(controllers.AuthController)
+		v1.POST("/auth/registration", auth.Registration)
+		authR := v1.Group("/auth")
 		{
-			auth.Use(authMiddleware.MiddlewareFunc())
+			authR.Use(controllers.AuthMiddleware.MiddlewareFunc())
 			//auth.GET("/account", helloHandler)
-			auth.GET("/refresh_token", authMiddleware.RefreshHandler)
+			authR.GET("/refresh_token", controllers.AuthMiddleware.RefreshHandler)
 		}
 
 	}
