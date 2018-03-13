@@ -1,4 +1,4 @@
-package main
+package golang_server
 
 import (
 	"github.com/gin-gonic/gin"
