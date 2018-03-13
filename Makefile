@@ -4,14 +4,12 @@
 GOBUILD=$(GOCMD) build
 GOCLEAN=$(GOCMD) clean
 GOTEST=$(GOCMD) test
+export GOPATH=${PWD}
 
 
 
 deps:
-	go get github.com/gin-gonic/gin
-	go get golang.org/x/crypto/bcrypt
-	go get gopkg.in/mgo.v2
-	go get github.com/appleboy/gin-jwt
+	go get ./...
 deps-fe:
 	cd web && npm i
 run:

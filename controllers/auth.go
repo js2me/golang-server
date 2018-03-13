@@ -1,11 +1,11 @@
 package controllers
 
 import (
-	"github.com/gin-gonic/gin"
-	"../models"
-	"time"
-	"github.com/appleboy/gin-jwt"
 	"fmt"
+	"github.com/appleboy/gin-jwt"
+	"github.com/gin-gonic/gin"
+	"github.com/js2me/golang-server/models"
+	"time"
 )
 
 var AuthMiddleware = &jwt.GinJWTMiddleware{
@@ -43,13 +43,12 @@ var AuthMiddleware = &jwt.GinJWTMiddleware{
 	TimeFunc: time.Now,
 }
 
-
 type AuthController struct {
 }
 
 func (ctrl *AuthController) Registration(c *gin.Context) {
 	var regForm models.NewUser
-	if err := c.BindJSON(&regForm);err != nil{
+	if err := c.BindJSON(&regForm); err != nil {
 		panic(err)
 		c.Error(err)
 		return

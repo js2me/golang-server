@@ -1,8 +1,8 @@
 package main
 
 import (
-	"./controllers"
 	"github.com/gin-gonic/gin"
+	"github.com/js2me/golang-server/controllers"
 	"os"
 )
 
@@ -18,7 +18,6 @@ func main() {
 	router.Use(CORSMiddleware())
 
 	// the jwt middleware
-
 
 	router.POST("/login", controllers.AuthMiddleware.LoginHandler)
 	//router.POST("/registration", controllers.AuthMiddleware.Re)
