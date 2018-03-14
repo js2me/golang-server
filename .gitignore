@@ -1,4 +1,5 @@
 /.idea
 .idea/
 tmp
-web/node_modules
+src/gs/tmp
+src/gs/web/node_modules
