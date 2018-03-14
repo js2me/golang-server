@@ -1,7 +1,7 @@
 package db
 
 import (
-	"github.com/js2me/golang-server/models"
+	"models"
 	"gopkg.in/mgo.v2"
 )
 

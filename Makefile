@@ -5,10 +5,9 @@ GOBUILD=$(GOCMD) build
 GOCLEAN=$(GOCMD) clean
 GOTEST=$(GOCMD) test
 export GOPATH=${PWD}
-
-
-
+export PROJECTPATH=${GOPATH + src/gs}
 deps:
+	echo ${PROJECTPATH}
 	go get ./...
 deps-fe:
 	cd web && npm i

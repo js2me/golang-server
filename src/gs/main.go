@@ -2,7 +2,7 @@ package golang_server
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/js2me/golang-server/controllers"
+	"controllers"
 	"os"
 )
 

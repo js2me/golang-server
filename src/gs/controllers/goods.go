@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/js2me/golang-server/db"
+	"db"
 	"gopkg.in/mgo.v2/bson"
 	"strconv"
 	"utils"

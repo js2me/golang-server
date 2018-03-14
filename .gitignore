@@ -2,4 +2,8 @@
 .idea/
 tmp
 src/gs/tmp
+src/github.com/
+src/golang.org/
+src/gopkg.in/
+src/gs/web/node_modules/
 src/gs/web/node_modules

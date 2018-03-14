@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/appleboy/gin-jwt"
 	"github.com/gin-gonic/gin"
-	"github.com/js2me/golang-server/models"
+	"models"
 	"time"
 )
 
