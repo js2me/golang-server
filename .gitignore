@@ -6,6 +6,6 @@
 pkg
 bin
 !/.gitignore
-src/github.com
-src/gopkg.in
+src/github.com/
+src/gopkg.in/
 
