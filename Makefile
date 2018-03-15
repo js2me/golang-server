@@ -4,13 +4,15 @@
 GOBUILD=$(GOCMD) build
 GOCLEAN=$(GOCMD) clean
 GOTEST=$(GOCMD) test
+GOSRC=${PWD}/src/golang-server
+GOPATH=${PWD}
 
 deps:
-	export GOPATH=${PWD}
-	go get ./... -o
+	echo ${SRC}
+	go get ./...
 deps-fe:
 	cd web && npm i
 run:
-	PORT=8080 go run ./main.go
+	PORT=8080 go run ${GOSRC}/main.go
 run-fe:
 	cd web && npm start

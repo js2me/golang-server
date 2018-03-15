@@ -1,0 +1,20 @@
+<div class="title">
+  <span>Your account</span>
+</div>
+<div class="user-info">
+  <user-photo [imageUrl]="user.image" [width]="'256px'" [height]="'256px'"></user-photo>
+  <div class="main-info">
+    <label>
+      Username: <span>{{user.username}}</span>
+    </label>
+    <label>
+      Email: <span>{{user.email}}</span>
+    </label>
+    <label>
+      Created at: <span>{{user.createdAt | date:'dd.MM.yyyy HH:mm'}}</span>
+    </label>
+    <label>
+      Bio: <span>{{user.bio}}</span>
+    </label>
+  </div>
+</div>

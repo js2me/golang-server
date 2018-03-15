@@ -1,0 +1,182 @@
+@import '~sass/variables';
+@import '~sass/mixins';
+
+:host {
+  $host-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.39);
+  height: $header-height;
+  position: fixed;
+  z-index: 2;
+  width: 100% - ($_horizontal-margin * 2);
+  top: 0;
+  margin: $header-layout-margin;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  box-shadow: $host-box-shadow;
+  color: $second-font-color;
+  text-shadow: 0 1px 1px black;
+
+  .layout-header-wrapper{
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    position: relative;
+    padding: calc(#{$header-height} / 3) calc(#{$header-height} / 3);
+    display: flex;
+    justify-content: space-between;
+
+  }
+  &:before {
+    max-height: $header-height;
+    content: '';
+    background-position: center;
+    background-image: url('/assets/background-header.jpg');
+    filter: grayscale(50%) contrast(100%);
+    transition: filter 650ms ease;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    border-radius: inherit;
+    background-size: cover;
+  }
+  &:hover{
+    &:before{
+        filter:grayscale(0%) contrast(142%);
+    }
+    .menu{
+      a{
+        &.active{
+            background:$second-color;
+        }
+      }
+    }
+  }
+  .app-name {
+    max-height: $header-height;
+    flex: 1 1;
+  }
+  .menu {
+    .auth-routes, .no-auth-routes {
+      display: inline-block;
+    }
+    .no-auth-routes {
+      a {
+        &:not(.active) {
+          color: $menu-auth-links-color;
+        }
+      }
+    }
+    a {
+      text-decoration: underline;
+      color: $second-font-color;
+      padding: 5px;
+      cursor: pointer;
+      transition: all 250ms linear;
+      &.logout {
+        color: $menu-logout-link-color;
+      }
+      &.active {
+        background: $main-color;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.16);
+        color: white;
+        text-decoration: none;
+      }
+    }
+
+  }
+  .app-title{
+    outline: none;
+    cursor: pointer;
+  }
+
+
+
+
+
+
+
+  &.auth {
+    .auth-routes {
+      display: inline-block;
+    }
+    .no-auth-routes {
+      display: none !important;
+    }
+  }
+  &:not(.auth) {
+    .auth-routes {
+      display: none !important;
+    }
+  }
+  @media only screen and (max-width: 580px) {
+    .menu {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: auto;
+      margin-top: $header-height;
+
+      div, a {
+        display: block;
+        width: 100%;
+      }
+      a {
+        text-shadow: none;
+        color: $second-font-color;
+        padding: 7% calc(#{$header-height} / 3);
+        position: relative;
+      }
+    }
+
+    .menu-button {
+      display: block;
+      width: $menu-button-size;
+      height: $menu-button-size;
+      right: calc(#{$header-height} / 3);
+      position: absolute;
+      top: calc(#{$header-height} / 4);
+      cursor: pointer;
+      svg {
+        height: inherit;
+        width: inherit;
+        fill: $menu-button-color;
+        fill-opacity: $menu-button-opacity;
+      }
+    }
+    &.menu-showed {
+      border-radius: 0;
+      height: 100%;
+      @include linear-gradient-background($menu-gradient-color1, $menu-gradient-color1-pos, $menu-gradient-color2, $menu-gradient-color2-pos);
+      .menu {
+        display: block;
+      }
+      .menu-button {
+        svg {
+          path {
+            d: path('M 357 35.7 L 321.3 0 L 178.5 142.8 L 35.7 0 L 0 35.7 L 142.8 178.5 L 0 321.3 L 35.7 357 L 178.5 214.2 L 321.3 357 L 357 321.3 L 214.2 178.5 Z');
+          }
+        }
+      }
+      &:before{
+        box-shadow: $host-box-shadow;
+      }
+    }
+
+    &.auth {
+      .auth-routes {
+        display: block;
+      }
+    }
+    &:not(.auth) {
+      .no-auth-routes {
+        display: block;
+      }
+    }
+  }
+}
+
+
