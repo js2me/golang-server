@@ -1,14 +1,13 @@
 .PHONY: deps build doc fmt lint run run-fe test vendor_clean vendor_get vendor_update vet
+export GOPATH=${PWD}
 
 
 GOBUILD=$(GOCMD) build
 GOCLEAN=$(GOCMD) clean
 GOTEST=$(GOCMD) test
-GOSRC=${PWD}/src/golang-server
-GOPATH=${PWD}
+GOSRC=${GOPATH}/src/golang-server
 
 deps:
-	echo ${SRC}
 	go get ./...
 deps-fe:
 	cd web && npm i
