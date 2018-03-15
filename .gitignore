@@ -2,10 +2,9 @@
 # If all files excluded and you will include only specific sub-directories
 # the parent path must matched before.
 #
-.idea
-pkg
-bin
-!/.gitignore
+.idea/
+pkg/
+bin/
 src/github.com/
 src/gopkg.in/
 
