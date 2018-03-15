@@ -6,12 +6,14 @@ GOBUILD=$(GOCMD) build
 GOCLEAN=$(GOCMD) clean
 GOTEST=$(GOCMD) test
 GOSRC=${GOPATH}/src/golang-server
+CLIENTSRC=${GOSRC}/client
+
 
 deps:
 	go get ./...
 deps-fe:
-	cd web && npm i
+	cd ${CLIENTSRC} && npm i
 run:
 	PORT=8080 go run ${GOSRC}/main.go
 run-fe:
-	cd web && npm start
+	cd ${CLIENTSRC} && npm start
